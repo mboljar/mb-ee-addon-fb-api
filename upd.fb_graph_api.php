@@ -63,7 +63,12 @@ class Fb_graph_api_upd {
 		$query = ee()->db->get_where('modules', array('module_name' => 'Fb_graph_api'));
 
 		ee()->db->where('module_id', $query->row('module_id'));
-		ee()->db->delete('module_member_roles');
+
+		if (version_compare(APP_VER, '6.0.0', '<')) {
+			ee()->db->delete('module_member_groups');
+		} else {
+			ee()->db->delete('module_member_roles');
+		}
 
 		ee()->db->where('module_name', 'Fb_graph_api');
         ee()->db->delete('modules');

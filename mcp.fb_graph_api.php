@@ -9,7 +9,7 @@ use Facebook\Facebook;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 
-class Fb_garph_api_mcp {
+class Fb_graph_api_mcp {
 	
 	function __construct()
 	{
