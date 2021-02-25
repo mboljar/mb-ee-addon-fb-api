@@ -114,19 +114,22 @@ class Fb_graph_api {
         }
 
         if ($params['json'] == 'true') {
-            // Output our pure JSON here
+            // Output our pure JSON here with top level element '{"data":[]}'
             ee()->output->send_ajax_response($rows[0]);
         }
 
+        // remove top level JSON/Array element 'data:'
+        // we don't need it for tag output
+        $rows = call_user_func_array('array_merge', $rows[0]);
     /*
 		//
 		// This may be handy for pagination later but for now it's just filed away.
 		//
-		if (preg_match("/".LD."paging".RD."(.+?)".LD.'\/'."paging".RD."/s", $this->EE->TMPL->tagdata, $page_match)) {
+		if (preg_match("/".LD."paging".RD."(.+?)".LD.'\/'."paging".RD."/s", ee()->TMPL->tagdata, $page_match)) {
 			// The pattern was found and we set aside the paging tagdata for later and created a copy of all the other tagdata for use
 			$paging = $page_match[1];
 			// Replace the {paging} variable pairs with nothing and set this aside for later.
-			$tag_data = preg_replace("/".LD."paging".RD.".+?".LD.'\/'."paging".RD."/s", "", $this->EE->TMPL->tagdata);
+			$tag_data = preg_replace("/".LD."paging".RD.".+?".LD.'\/'."paging".RD."/s", "", ee()->TMPL->tagdata);
 		*/
 		
 		$tag_data = ee()->TMPL->tagdata;
