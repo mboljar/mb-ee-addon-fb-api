@@ -1,2 +1,2 @@
 # fb_graph_api
- Facebook Graph API Explorer for ExpressionEngine
+ Facebook Graph API Explorer for ExpressionEngine 6
