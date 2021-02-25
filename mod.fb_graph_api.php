@@ -34,7 +34,7 @@ class Fb_graph_api {
      *
      * @return string
      */
-	function graph() {
+	function get() {
 
 		// Load Typography Class to parse data
 		ee()->load->library('typography');
@@ -46,7 +46,7 @@ class Fb_graph_api {
 
 		$params = array(
             'token'             =>  ee()->TMPL->fetch_param('token', $this->settings['default_token']),
-            'user_id'	        =>  ee()->TMPL->fetch_param('user_id'),
+            'target_id'	        =>  ee()->TMPL->fetch_param('target_id'),
             'edge'	            =>  ee()->TMPL->fetch_param('edge'),
             'fields'	        =>  ee()->TMPL->fetch_param('fields'),
             'include_canceled'  =>  ee()->TMPL->fetch_param('include_canceled', 'false'),
@@ -58,7 +58,7 @@ class Fb_graph_api {
             'json'          	=>  ee()->TMPL->fetch_param('json', 'false')
 		);
 
-        $request = $params['user_id'] . "/";
+        $request = $params['target_id'] . "/";
         if ( $params['edge'] != '' ) {
             $request = $request . $params['edge'];
         }
