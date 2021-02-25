@@ -283,7 +283,7 @@ Ron's Facebook Link add-on can be found at:
 * Updated readme.md
 * Fixed pure JSON output
 * Fixed typo in class name
-* Starting to work on backward compatibility
+* Started to work on backward compatibility
 
 
 
