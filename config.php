@@ -12,7 +12,7 @@
 if ( ! defined('FACEBOOK_GRAPH_API_NAME'))
 {
     define('FACEBOOK_GRAPH_API_NAME', 'Facebook Graph API Explorer');
-    define('GRAPH_VERSION', 'v10.0');
+    define('FACEBOOK_GRAPH_VERSION', 'v10.0');
 }
 
 /* End of file config.php */

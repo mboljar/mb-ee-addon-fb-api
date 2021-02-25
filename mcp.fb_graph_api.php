@@ -28,7 +28,7 @@ class Fb_garph_api_mcp {
 			);
 		}
 
-        $fb_sdk = "<script>$(document).ready(function() { $.ajaxSetup({ cache: true });$.getScript('//connect.facebook.net/en_US/sdk.js', function() { FB.init({ appId: '" . $this->settings['app_id'] . "', xfbml: true, cookie: true, version: '" . GRAPH_VERSION . "' }); FB.getLoginStatus(function(response) { if(response) { $(\"#fb-error\").hide(); $(\"#fb-authorize\").show(); } });}); });</script>";
+        $fb_sdk = "<script>$(document).ready(function() { $.ajaxSetup({ cache: true });$.getScript('//connect.facebook.net/en_US/sdk.js', function() { FB.init({ appId: '" . $this->settings['app_id'] . "', xfbml: true, cookie: true, version: '" . FACEBOOK_GRAPH_VERSION . "' }); FB.getLoginStatus(function(response) { if(response) { $(\"#fb-error\").hide(); $(\"#fb-authorize\").show(); } });}); });</script>";
 
         ee()->cp->add_to_foot($fb_sdk);
 	}
@@ -53,7 +53,7 @@ class Fb_garph_api_mcp {
 		$vars['id'] = NULL;
 		$vars['app_id'] = NULL;
 		$vars['app_secret'] = NULL;
-		$vars['graph_version'] = GRAPH_VERSION;
+		$vars['graph_version'] = FACEBOOK_GRAPH_VERSION;
 		$vars['add_app'] = ee('CP/URL', 'addons/settings/fb_graph_api/add_app');
         $vars['add_token'] = ee('CP/URL', 'addons/settings/fb_graph_api/add_token');
         $vars['get_token'] = ee('CP/URL', 'addons/settings/fb_graph_api/get_tokens');
@@ -153,7 +153,7 @@ class Fb_garph_api_mcp {
         $fb = new Facebook(array(
             'app_id' => $this->settings['app_id'],
             'app_secret' => $this->settings['app_secret'],
-            'default_graph_version' => GRAPH_VERSION
+            'default_graph_version' => FACEBOOK_GRAPH_VERSION
         ));
 
         // Get app token

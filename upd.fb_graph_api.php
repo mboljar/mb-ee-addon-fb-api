@@ -2,7 +2,7 @@
 
 class Fb_graph_api_upd {
 
-	var $version = '1.0.0';
+	var $version = '1.0.1';
 	
 	function __construct()
 	{
