@@ -40,9 +40,7 @@ MIT License
 
 ```
 {exp:fb_graph_api:get}
-{data}
 	output variables
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -58,22 +56,14 @@ MIT License
 Examples for the [ExpressionEngine Facebook page](https://www.facebook.com/expressionengine/):
 
 ```
-{exp:fb_graph_api:get
-	node_id="expressionengine"
-}
-{data}
+{exp:fb_graph_api:get node_id="expressionengine"}
 	output variables
-{/data}
 {/exp:fb_graph_api:get}`
 ```
 
 ```
-{exp:fb_graph_api:get
-	node_id="359401999932"
-}
-{data}
+{exp:fb_graph_api:get node_id="359401999932"}
 	output variables
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -85,13 +75,8 @@ Browse the [Graph API documentation][api docs] for available edges.
 Examples of getting events by using the events edge:
 
 ```
-{exp:fb_graph_api:get
-	node_id="[YOUR NODE ID]"
-	edge="events"
-}
-{data}
+{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events"}
 	output variables
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -103,12 +88,7 @@ Browse the [Graph API documentation][api docs] for available fields.
 Examples for getting specific event fields:
 
 ```
-{exp:fb_graph_api:get
-	node_id="[YOUR NODE ID]"
-	edge="events"
-	fields="id, name, start_time, end_time, description, cover{source}"
-}
-{data}
+{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description, cover{source}"}
 	{id}
 	{name}
 	{start_time}
@@ -116,8 +96,7 @@ Examples for getting specific event fields:
 	{description}
 	{cover}
 		{cover:source}
-	{/cover}	
-{/data}
+	{/cover}
 {/exp:fb_graph_api:get}
 ```
 
@@ -133,20 +112,13 @@ This is an optional parameter but if you want to display canceled events it is r
 Facebook omits canceled events by default.
 
 ```
-{exp:fb_graph_api:get
-	node_id="[YOUR NODE ID]"
-	edge="events"
-	fields="id, name, start_time, end_time, description, is_canceled"
-	include_canceled="true"
-}
-{data}
+{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description, is_canceled" include_canceled="true"}
 	{id}
 	{name}
 	{start_time}
 	{end_time}
 	{description}
 	{is_canceled}
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -159,20 +131,12 @@ To narrow down the query to a specific timeframe. These parameters can be used s
 Standard date/time formatting can be applied to date and time variables.
 
 ```
-{exp:fb_graph_api:get
-	node_id="[YOUR NODE ID]"
-	edge="events"
-	fields="id, name, start_time, end_time, description"
-	since="2020-12-01"
-	until="2020-12-31"
-}
-{data}
+{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description" since="2020-12-01" until="2020-12-31"}
 	{id}
 	{name}
 	{start_time}
 	{end_time}
 	{description}
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -185,20 +149,12 @@ Displaying events in December 2020.
 Facebook Page only. Does not work for Instagram.
 
 ```
-{exp:fb_graph_api:get
-	node_id="[YOUR NODE ID]"
-	edge="events"
-	fields="id, name, start_time, end_time, description"
-	sort="start_time"
-	order="asc"
-}
-{data}
+{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description" sort="start_time" order="asc"}
 	{id}
 	{name}
 	{start_time}
 	{end_time}
 	{description}
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -211,15 +167,8 @@ Sorting by field `start_time` and ordering ascending.
 Returns the query in pure JSON format. All other parsing will be lost.
 
 ```
-{exp:fb_graph_api:get
-	node_id="[YOUR NODE ID]"
-	edge="events"
-	fields="id, name, start_time, end_time, description"
-	json="true"
-}
-{data}
+{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description" json="true"}
 	json formatted output
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -228,13 +177,7 @@ Returns the query in pure JSON format. All other parsing will be lost.
 ## Instagram example
 
 ```
-{exp:fb_graph_api:get
-	node_id="YOUR INSTAGRAM BUSINESS/CREATOR ACCOUNT ID"
-	edge="media"
-	fields="id,timestamp,caption,media_url,permalink,like_count,comments_count"
-	limit="12"
-}
-{data}
+{exp:fb_graph_api:get node_id="YOUR INSTAGRAM BUSINESS/CREATOR ACCOUNT ID" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
 	{id}
 	{timestamp}
 	{caption}
@@ -242,7 +185,6 @@ Returns the query in pure JSON format. All other parsing will be lost.
 	{permalink}
 	{like_count}
 	{comments_count}
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
