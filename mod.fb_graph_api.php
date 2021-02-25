@@ -46,7 +46,7 @@ class Fb_graph_api {
 
 		$params = array(
             'token'             =>  ee()->TMPL->fetch_param('token', $this->settings['default_token']),
-            'target_id'	        =>  ee()->TMPL->fetch_param('target_id'),
+            'node_id'	        =>  ee()->TMPL->fetch_param('node_id'),
             'edge'	            =>  ee()->TMPL->fetch_param('edge'),
             'fields'	        =>  ee()->TMPL->fetch_param('fields'),
             'include_canceled'  =>  ee()->TMPL->fetch_param('include_canceled', 'false'),
@@ -58,7 +58,7 @@ class Fb_graph_api {
             'json'          	=>  ee()->TMPL->fetch_param('json', 'false')
 		);
 
-        $request = $params['target_id'] . "/";
+        $request = $params['node_id'] . "/";
         if ( $params['edge'] != '' ) {
             $request = $request . $params['edge'];
         }
@@ -85,7 +85,7 @@ class Fb_graph_api {
         $fb = new Facebook(array(
             'app_id' => $this->settings['app_id'],
             'app_secret' => $this->settings['app_secret'],
-            'default_graph_version' => GRAPH_VERSION
+            'default_graph_version' => FACEBOOK_GRAPH_VERSION
         ));
 
 		try {
@@ -113,8 +113,7 @@ class Fb_graph_api {
 
         if($params['json'] == 'true') {
             // Output our JSON here
-            $jsonResponse = json_encode($rows[0]);
-            ee()->output->send_ajax_response($jsonResponse);
+            ee()->output->send_ajax_response($rows[0]);
         }
 
     /*
