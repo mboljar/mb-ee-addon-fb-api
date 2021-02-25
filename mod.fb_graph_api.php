@@ -42,6 +42,7 @@ class Fb_graph_api {
 		ee()->load->helper('url');
         ee()->load->helper('fb_parse_helper');
 	
+        $request = '';
 		$output = '';
 
 		$params = array(
@@ -58,27 +59,28 @@ class Fb_graph_api {
             'json'          	=>  ee()->TMPL->fetch_param('json', 'false')
 		);
 
+        // Build the request
         $request = $params['node_id'] . "/";
-        if ( $params['edge'] != '' ) {
+        if ( !empty($params['edge']) ) {
             $request = $request . $params['edge'];
         }
         $request = $request . "?fields=" . $params['fields'];
         if ( $params['include_canceled'] == 'true' ) {
             $request = $request . "&include_canceled=true";
         }
-        if ( $params['since'] != '' && preg_match('/^\d{4}-\d{2}-\d{2}$/', $params['since']) ) {
+        if ( !empty($params['since']) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $params['since']) ) {
             $request = $request . "&since=" . $params['since'];
         }
-        if ( $params['until'] != '' && preg_match('/^\d{4}-\d{2}-\d{2}$/', $params['until']) ) {
+        if ( !empty($params['until']) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $params['until']) ) {
             $request = $request . "&until=" . $params['until'];
         }
-        if ( $params['sort'] != '' ) {
+        if ( !empty($params['sort']) ) {
             $request = $request . "&sort=" . $params['sort'];
         }
-        if ( $params['order'] != '' ) {
+        if ( !empty($params['order']) ) {
             $request = $request . "&order=" . $params['order'];
         }
-        if ( $params['limit'] != '' ) {
+        if ( !empty($params['limit']) ) {
             $request = $request . "&limit=" . $params['limit'];
         }
 
@@ -111,8 +113,8 @@ class Fb_graph_api {
             array_slice($rows[0], 0, $params['limit']);
         }
 
-        if($params['json'] == 'true') {
-            // Output our JSON here
+        if ($params['json'] == 'true') {
+            // Output our pure JSON here
             ee()->output->send_ajax_response($rows[0]);
         }
 
