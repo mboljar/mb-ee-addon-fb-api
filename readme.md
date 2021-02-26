@@ -36,6 +36,21 @@ MIT License
 
 ---
 
+## Installation and activation
+
+* Download the add-on from Github and unzip the file to destination of your choice
+* Rename the unzipped folder `fb_graph_api-1.0.1` to `fb_graph_api`
+* Copy the `fb_graph_api` folder to `./system/user/addons/fb_graph_api`
+* Go to the add-ons page in your control panel and install the add-on
+* Go to the settings page of the add-on and fill in the form (App ID and App Secret) and click the `Save Settings` button.
+* After saving the settings click the `Get Access Tokens` button. A list of pages you manage will display
+* Select the Facebook page you want to query and click the `Save Token` button
+* The Facebook Graph API Explorer add-on is now installed and activated
+
+![Facebook Explorer Settings](D:\Github\fb_graph_api\Facebook-Graph-API-Explorer.png)
+
+---
+
 ## Tagpair
 
 ```
