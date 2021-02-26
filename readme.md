@@ -55,7 +55,9 @@ MIT License
 
 ```
 {exp:fb_graph_api:get}
+{data}
 	output variables
+{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -72,13 +74,17 @@ Examples for the [ExpressionEngine Facebook page](https://www.facebook.com/expre
 
 ```
 {exp:fb_graph_api:get node_id="expressionengine"}
+{data}
 	output variables
+{/data}
 {/exp:fb_graph_api:get}`
 ```
 
 ```
 {exp:fb_graph_api:get node_id="359401999932"}
+{data}
 	output variables
+{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -91,7 +97,9 @@ Examples of getting events by using the events edge:
 
 ```
 {exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events"}
+{data}
 	output variables
+{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -104,6 +112,7 @@ Examples for getting specific event fields:
 
 ```
 {exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description, cover{source}"}
+{data}
 	{id}
 	{name}
 	{start_time}
@@ -112,6 +121,7 @@ Examples for getting specific event fields:
 	{cover}
 		{cover:source}
 	{/cover}
+{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -128,12 +138,14 @@ Facebook omits canceled events by default.
 
 ```
 {exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description, is_canceled" include_canceled="true"}
+{data}
 	{id}
 	{name}
 	{start_time}
 	{end_time}
 	{description}
 	{is_canceled}
+{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -142,20 +154,23 @@ Facebook omits canceled events by default.
 ### since="yyyy-mm-dd" (optional), until="yyyy-mm-dd" (optional)
 Facebook Page only. Does not work for Instagram.
 
-To narrow down the query to a specific timeframe. These parameters can be used standalone as well as combined.  
-Standard date/time formatting can be applied to date and time variables.
+To narrow down the query to a specific timeframe. These parameters can be used standalone as well as combined.
 
 ```
 {exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description" since="2020-12-01" until="2020-12-31"}
+{data}
 	{id}
 	{name}
 	{start_time}
 	{end_time}
 	{description}
+{/data}
 {/exp:fb_graph_api:get}
 ```
 
 Displaying events in December 2020.
+
+Use standard formatting for date and time variables e.g. `{start_time format="%d-%m-%Y %H:%i"}`.
 
 
 
@@ -165,25 +180,29 @@ Facebook Page only. Does not work for Instagram.
 
 ```
 {exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description" sort="start_time" order="asc"}
+{data}
 	{id}
 	{name}
 	{start_time}
 	{end_time}
 	{description}
+{/data}
 {/exp:fb_graph_api:get}
 ```
 
-Sorting by field `start_time` and ordering ascending.
+Sorting by field `start_time` and ordering `ascending`.
 
 
 
 ### json="true" (optional)
 
-Returns the query in pure JSON format. All other parsing will be lost.
+Returns pure JSON format. All other parsing will be lost.
 
 ```
 {exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description" json="true"}
+{data}
 	json formatted output
+{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -193,6 +212,7 @@ Returns the query in pure JSON format. All other parsing will be lost.
 
 ```
 {exp:fb_graph_api:get node_id="YOUR INSTAGRAM BUSINESS/CREATOR ACCOUNT ID" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
+{data}
 	{id}
 	{timestamp}
 	{caption}
@@ -200,6 +220,7 @@ Returns the query in pure JSON format. All other parsing will be lost.
 	{permalink}
 	{like_count}
 	{comments_count}
+{/data}
 {/exp:fb_graph_api:get}
 ```
 

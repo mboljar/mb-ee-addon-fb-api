@@ -120,7 +120,7 @@ class Fb_graph_api {
 
         // remove top level JSON/Array element 'data:'
         // we don't need it for tag output
-        $rows = call_user_func_array('array_merge', $rows[0]);
+        //$rows = call_user_func_array('array_merge', $rows[0]);
     /*
 		//
 		// This may be handy for pagination later but for now it's just filed away.
