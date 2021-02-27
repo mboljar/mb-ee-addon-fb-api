@@ -27,7 +27,7 @@ Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
   * For Instagram: `instagram_basic`
 * Website domain(s) added to:
   * `App Dashboard -> Settings -> Advanced -> Domain Manager`
-  * `App Dashboard -> Facebook Login -> Settings-> Valid OAuth Redirect URIs`
+  * `App Dashboard -> Facebook Login -> Settings-> Valid OAuth Redirect URIs`
 
 ## Installation
 
@@ -45,17 +45,17 @@ Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 
 #### Example Usage Facebook
 
-```
+​```
 {exp:fb_graph_api:get node_id="[FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS]" edge="posts" fields="message,full_picture,permalink_url" limit=5}
   {if full_picture}<img src="full_picture">{/if}
   {message}
   {permalink_url}
 {/exp:fb_graph_api:get}
-```
+​```
 
 #### Example Usage Instagram
 
-```
+​```
 {exp:fb_graph_api:get node_id="[INSTAGRAM BUSINESS or CREATOR ACCOUNT ID]" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
 	{id}
 	{timestamp}
@@ -65,7 +65,7 @@ Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 	{like_count}
 	{comments_count}
 {/exp:fb_graph_api:get}
-```
+​```
 
 #### Parameters
 
@@ -93,7 +93,7 @@ Browse the [Facebook Graph API documentation][Facebook Graph API] and [Instagram
 
 Examples for getting specific event fields:
 
-```
+​```
 {exp:fb_graph_api:get node_id="[NODE ID]" edge="events" fields="id, name, description, cover{source}"}
 	{id}
 	{name}
@@ -102,7 +102,7 @@ Examples for getting specific event fields:
 		{cover:source}
 	{/cover}
 {/exp:fb_graph_api:get}
-```
+​```
 
 _Notice the selection of the subfield `source` of the `cover` field and the way to display the selected subfield._
 
