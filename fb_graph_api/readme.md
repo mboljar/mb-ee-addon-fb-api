@@ -12,8 +12,8 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 
 ## Requirements
 
-* ExpressionEngine 3+
-  Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
+* ExpressionEngine 3+   
+Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 * a SSL (HTTPS) enabled website. Facebook requires HTTPS
 * a Facebook Developer account and a Facebook App (https://developers.facebook.com/docs/development/)
 * Facebook App ID and Facebook App Secret which you will get after creating an app in the Facebook Developer portal.
@@ -26,14 +26,13 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
   * For a Facebook page at least: `manage_pages`, `pages_show_list`
   * For Instagram: `instagram_basic`
 * Website domain(s) added to:
-  * `App Dashboard -> Settings -> Domain Manager`
+  * `App Dashboard -> Settings -> Advanced -> Domain Manager`
   * `App Dashboard -> Facebook Login -> Settings-> Valid OAuth Redirect URIs`
 
 ## Installation
 
 * Download the add-on from Github and unzip the file to destination of your choice
-* Rename the unzipped folder `fb_graph_api-1.0.1` to `fb_graph_api`
-* Copy the `fb_graph_api` folder to `./system/user/addons/fb_graph_api`
+* Copy the `fb_graph_api/fb_graph_api` folder to `./system/user/addons/fb_graph_api`
 * Go to the add-ons page in your control panel and install the add-on
 * Go to the settings page of the add-on and fill in the form (App ID and App Secret) and click the `Save Settings` button.
 * After saving the settings click the `Get Access Tokens` button. A list of pages you manage will display
@@ -47,7 +46,7 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 #### Example Usage Facebook
 
 ```
-{exp:fb_graph_api:get node_id="FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS" edge="posts" fields="message,full_picture,permalink_url" limit=5}
+{exp:fb_graph_api:get node_id="[FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS]" edge="posts" fields="message,full_picture,permalink_url" limit=5}
   {if full_picture}<img src="full_picture">{/if}
   {message}
   {permalink_url}
@@ -57,7 +56,7 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 #### Example Usage Instagram
 
 ```
-{exp:fb_graph_api:get node_id="INSTAGRAM BUSINESS or CREATOR ACCOUNT ID" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
+{exp:fb_graph_api:get node_id="[INSTAGRAM BUSINESS or CREATOR ACCOUNT ID]" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
 	{id}
 	{timestamp}
 	{caption}
@@ -120,17 +119,17 @@ Facebook omits canceled events by default.
 
 Facebook Page only. Does not work for Instagram.
 
-To narrow down the query to start from a specific date.
+To narrow down the query results to start from a specific date.
 
-`{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2020-12-01"}`
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2020-12-01"}`
 
 ##### until
 
 Facebook Page only. Does not work for Instagram.
 
-To narrow down the query to end at a specific date.
+To narrow down the query results to end at a specific date.
 
-`{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2020-12-01"}`
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2020-12-01"}`
 
 ##### sort
 
@@ -138,7 +137,7 @@ Facebook Page only. Does not work for Instagram.
 
 The fieldname to sort the query.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="id, name, start_time" sort="start_time"}`
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]"}`
 
 ##### order
 
