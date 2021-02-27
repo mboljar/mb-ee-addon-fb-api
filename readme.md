@@ -26,7 +26,7 @@ Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
   * For a Facebook page at least: `manage_pages`, `pages_show_list`
   * For Instagram: `instagram_basic`
 * Website domain(s) added to:
-  * `App Dashboard -> Settings -> Domain Manager`
+  * `App Dashboard -> Settings -> Advanced -> Domain Manager`
   * `App Dashboard -> Facebook Login -> Settings-> Valid OAuth Redirect URIs`
 
 ## Installation
