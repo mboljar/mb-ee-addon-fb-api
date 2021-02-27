@@ -12,8 +12,8 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 
 ## Requirements
 
-* ExpressionEngine 3+
-  Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
+* ExpressionEngine 3+   
+Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 * a SSL (HTTPS) enabled website. Facebook requires HTTPS
 * a Facebook Developer account and a Facebook App (https://developers.facebook.com/docs/development/)
 * Facebook App ID and Facebook App Secret which you will get after creating an app in the Facebook Developer portal.
@@ -31,7 +31,7 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 
 ## Installation
 
-* Download the add-on from GitHub and unzip the file to destination of your choice
+* Download the add-on from GitHub and unzip the file to a folder of your choice
 * Copy `fb_graph_api/fb_graph_api` folder to `./system/user/addons/fb_graph_api`
 * Go to the add-ons page in your control panel and install the add-on
 * Go to the settings page of the add-on and fill in the form (App ID and App Secret) and click the `Save Settings` button.
@@ -108,7 +108,7 @@ Examples for getting specific event fields:
 
 _Notice the selection of the subfield `source` of the `cover` field and the way to display the selected subfield._
 
-##### include_canceled="true"
+##### include_canceled
 
 Facebook Page only. Does not work for Instagram.
 
@@ -123,7 +123,7 @@ Facebook Page only. Does not work for Instagram.
 
 To narrow down the query to start from a specific date.
 
-`{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2020-12-01"}`
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2020-12-01"}`
 
 ##### until
 
@@ -131,7 +131,7 @@ Facebook Page only. Does not work for Instagram.
 
 To narrow down the query to end at a specific date.
 
-`{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2020-12-01"}`
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2020-12-01"}`
 
 ##### sort
 
@@ -139,7 +139,7 @@ Facebook Page only. Does not work for Instagram.
 
 The fieldname to sort the query.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="id, name, start_time" sort="start_time"}`
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]"}`
 
 ##### order
 
