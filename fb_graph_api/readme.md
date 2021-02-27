@@ -6,14 +6,14 @@ Works only for Facebook Pages and Instagram Business/Creator accounts, not for p
 
 Facebook and Instagram have nice widgets to embed in your website. And in many occasions the recommended way to add Facebook and/or Instagram to your website. But those widgets display limited data and are very hard to customize.
 
-What if you want to display some specific data those widgets do not provide, or you want to add your own visual style to the output? Enter the Facebook Graph API Explorer for ExpressionEngine.
+What if you want to display some specific data those widgets do not provide? Or you want to add your own visual style to the output? Enter the Facebook Graph API Explorer for ExpressionEngine.
 
-With this add-on you can create custom Facebook Graph API and Instagram Graph API queries to get the data _you_ want. You have to apply your own styling to it so it will seamlessly fit into your website.
+With this add-on you can create custom Facebook Graph API and Instagram Graph API queries to get the data _you_ want and stylethe output the way _you_ want.
 
 ## Requirements
 
 * ExpressionEngine 3+   
-Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
+  Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 * a SSL (HTTPS) enabled website. Facebook requires HTTPS
 * a Facebook Developer account and a Facebook App (https://developers.facebook.com/docs/development/)
 * Facebook App ID and Facebook App Secret which you will get after creating an app in the Facebook Developer portal.
@@ -31,11 +31,11 @@ Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 
 ## Installation
 
-* Download the add-on from Github and unzip the file to destination of your choice
-* Copy the `fb_graph_api/fb_graph_api` folder to `./system/user/addons/fb_graph_api`
+* Download the add-on from GitHub and unzip the file to a folder of your choice
+* Copy `fb_graph_api/fb_graph_api` folder to `./system/user/addons/fb_graph_api`
 * Go to the add-ons page in your control panel and install the add-on
 * Go to the settings page of the add-on and fill in the form (App ID and App Secret) and click the `Save Settings` button.
-* After saving the settings click the `Get Access Tokens` button. A list of pages you manage will display
+* After saving the settings click the `Get Access Tokens` button. A list of pages you manage will appear
 * Select the Facebook page you want to query and click the `Save Token` button
 * The Facebook Graph API Explorer add-on is now installed and activated
 
@@ -45,18 +45,18 @@ Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 
 #### Example Usage Facebook
 
-​```
-{exp:fb_graph_api:get node_id="[FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS]" edge="posts" fields="message,full_picture,permalink_url" limit=5}
+```
+{exp:fb_graph_api:get node_id="FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS" edge="posts" fields="message,full_picture,permalink_url" limit=5}
   {if full_picture}<img src="full_picture">{/if}
   {message}
   {permalink_url}
 {/exp:fb_graph_api:get}
-​```
+```
 
 #### Example Usage Instagram
 
-​```
-{exp:fb_graph_api:get node_id="[INSTAGRAM BUSINESS or CREATOR ACCOUNT ID]" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
+```
+{exp:fb_graph_api:get node_id="INSTAGRAM BUSINESS or CREATOR ACCOUNT ID" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
 	{id}
 	{timestamp}
 	{caption}
@@ -65,7 +65,7 @@ Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 	{like_count}
 	{comments_count}
 {/exp:fb_graph_api:get}
-​```
+```
 
 #### Parameters
 
@@ -93,7 +93,7 @@ Browse the [Facebook Graph API documentation][Facebook Graph API] and [Instagram
 
 Examples for getting specific event fields:
 
-​```
+```
 {exp:fb_graph_api:get node_id="[NODE ID]" edge="events" fields="id, name, description, cover{source}"}
 	{id}
 	{name}
@@ -102,16 +102,15 @@ Examples for getting specific event fields:
 		{cover:source}
 	{/cover}
 {/exp:fb_graph_api:get}
-​```
+```
 
 _Notice the selection of the subfield `source` of the `cover` field and the way to display the selected subfield._
 
-##### include_canceled="true"
+##### include_canceled
 
 Facebook Page only. Does not work for Instagram.
 
-This is an optional parameter but if you want to display canceled events it is required.
-Facebook omits canceled events by default.
+This is an optional parameter but if you want to display canceled events it is required and must be set to **true**. Facebook omits canceled events by default.
 
 `{exp:fb_graph_api:get node_id="[NODE ID]" edge="events" fields="id, name, description, is_canceled" include_canceled="true"}`
 
@@ -119,7 +118,7 @@ Facebook omits canceled events by default.
 
 Facebook Page only. Does not work for Instagram.
 
-To narrow down the query results to start from a specific date.
+To narrow down the query to start from a specific date.
 
 `{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2020-12-01"}`
 
@@ -127,7 +126,7 @@ To narrow down the query results to start from a specific date.
 
 Facebook Page only. Does not work for Instagram.
 
-To narrow down the query results to end at a specific date.
+To narrow down the query to end at a specific date.
 
 `{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2020-12-01"}`
 

@@ -6,14 +6,14 @@ Works only for Facebook Pages and Instagram Business/Creator accounts, not for p
 
 Facebook and Instagram have nice widgets to embed in your website. And in many occasions the recommended way to add Facebook and/or Instagram to your website. But those widgets display limited data and are very hard to customize.
 
-What if you want to display some specific data those widgets do not provide, or you want to add your own visual style to the output? Enter the Facebook Graph API Explorer for ExpressionEngine.
+What if you want to display some specific data those widgets do not provide? Or you want to add your own visual style to the output? Enter the Facebook Graph API Explorer for ExpressionEngine.
 
-With this add-on you can create custom Facebook Graph API and Instagram Graph API queries to get the data _you_ want. You have to apply your own styling to it so it will seamlessly fit into your website.
+With this add-on you can create custom Facebook Graph API and Instagram Graph API queries to get the data _you_ want and stylethe output the way _you_ want.
 
 ## Requirements
 
 * ExpressionEngine 3+   
-Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
+  Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
 * a SSL (HTTPS) enabled website. Facebook requires HTTPS
 * a Facebook Developer account and a Facebook App (https://developers.facebook.com/docs/development/)
 * Facebook App ID and Facebook App Secret which you will get after creating an app in the Facebook Developer portal.
@@ -112,8 +112,7 @@ _Notice the selection of the subfield `source` of the `cover` field and the way 
 
 Facebook Page only. Does not work for Instagram.
 
-This is an optional parameter but if you want to display canceled events it is required.
-Facebook omits canceled events by default.
+This is an optional parameter but if you want to display canceled events it is required and must be set to **true**. Facebook omits canceled events by default.
 
 `{exp:fb_graph_api:get node_id="[NODE ID]" edge="events" fields="id, name, description, is_canceled" include_canceled="true"}`
 
