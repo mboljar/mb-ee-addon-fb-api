@@ -19,7 +19,9 @@ MIT License
 
 ## Requirements
 
-* ExpressionEngine 6. Not tested on lower versions (yet).
+* ExpressionEngine >= 3.5.17.
+  Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
+* a SSL (HTTPS) enabled website. Facebook requires HTTPS.
 * a Facebook Developer account and a Facebook App (https://developers.facebook.com/docs/development/)
 * Facebook App ID and Facebook App Secret which you will get after creating an app in the Facebook Developer portal.
 * Facebook Login installed in the Facebook App Dashboard.
@@ -180,13 +182,11 @@ Facebook Page only. Does not work for Instagram.
 
 ```
 {exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description" sort="start_time" order="asc"}
-{data}
 	{id}
 	{name}
 	{start_time}
 	{end_time}
 	{description}
-{/data}
 {/exp:fb_graph_api:get}
 ```
 
@@ -196,14 +196,55 @@ Sorting by field `start_time` and ordering `ascending`.
 
 ### json="true" (optional)
 
-Returns pure JSON format. All other parsing will be lost.
+Returns pure JSON. All other parsing is omitted. Great when you want to use it in a JavaScript driven app i.e. a React.js app.
 
 ```
-{exp:fb_graph_api:get node_id="[YOUR NODE ID]" edge="events" fields="id, name, start_time, end_time, description" json="true"}
-{data}
-	json formatted output
-{/data}
+{exp:fb_graph_api:get
+	node_id="[YOUR_NODE_ID]"
+	edge="events"
+	fields="id,name,start_time,end_time,description,cover{source},is_canceled"
+	include_canceled="true"
+	sort="start_time"
+	since="2020-12-01"
+	until="2020-12-31"
+	order="asc"
+	limit="1"
+	json="true"
+	}
 {/exp:fb_graph_api:get}
+```
+
+Above example will output:
+
+```
+{
+  "data": [
+    {
+      "id": "Facebook event id string e.g. 423904768897899",
+      "name": "event name text",
+      "start_time": "YYYY-MM-DDTHH:MM:SS+0000",
+      "end_time": "YYYY-MM-DDTHH:MM:SS+0000",
+      "description": "event description text",
+      "cover": [
+        {
+          "cover:source": "https://url-to-image"
+        }
+      ],
+      "is_canceled": true|false
+    }
+  ],
+  "paging": [
+    {
+      "paging:cursors": [
+        {
+          "cursors:before": "CURSOR_STRING",
+          "cursors:after": "CURSOR_STRING"
+        }
+      ],
+      "paging:next": "https://graph.facebook.com/v10.0/[YOUR_NODE_ID]/events?access_token=ACCESS_TOKEN&fields=id%2Cname%2Cstart_time%2Cend_time%2Cdescription%2Ccover%7Bsource%7D%2Cis_canceled&sort=start_time&since=2020-12-01&until=2020-12-31&include_canceled=true&limit=1&after=CURSOR_STRING"
+    }
+  ]
+}
 ```
 
 ---
@@ -212,7 +253,6 @@ Returns pure JSON format. All other parsing will be lost.
 
 ```
 {exp:fb_graph_api:get node_id="YOUR INSTAGRAM BUSINESS/CREATOR ACCOUNT ID" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
-{data}
 	{id}
 	{timestamp}
 	{caption}
@@ -220,7 +260,6 @@ Returns pure JSON format. All other parsing will be lost.
 	{permalink}
 	{like_count}
 	{comments_count}
-{/data}
 {/exp:fb_graph_api:get}
 ```
 

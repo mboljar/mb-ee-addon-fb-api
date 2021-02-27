@@ -26,7 +26,17 @@ class Fb_graph_api_mcp {
                 'created_by'    => $row->created_by,
                 'created_date'  => $row->created_date
 			);
-		}
+		} else {
+			$this->settings = array(
+                'id'            => '',
+				'app_id'		=> '',
+				'app_secret'	=> '',
+                'default_token' => '',
+                'tokens'        => '',
+                'created_by'    => '',
+                'created_date'  => ''
+			);
+        }
 
         $fb_sdk = "<script>$(document).ready(function() { $.ajaxSetup({ cache: true });$.getScript('//connect.facebook.net/en_US/sdk.js', function() { FB.init({ appId: '" . $this->settings['app_id'] . "', xfbml: true, cookie: true, version: '" . FACEBOOK_GRAPH_VERSION . "' }); FB.getLoginStatus(function(response) { if(response) { $(\"#fb-error\").hide(); $(\"#fb-authorize\").show(); } });}); });</script>";
 

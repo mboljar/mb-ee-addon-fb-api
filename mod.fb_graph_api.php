@@ -118,9 +118,6 @@ class Fb_graph_api {
             ee()->output->send_ajax_response($rows[0]);
         }
 
-        // remove top level JSON/Array element 'data:'
-        // we don't need it for tag output
-        //$rows = call_user_func_array('array_merge', $rows[0]);
     /*
 		//
 		// This may be handy for pagination later but for now it's just filed away.
@@ -132,7 +129,12 @@ class Fb_graph_api {
 			$tag_data = preg_replace("/".LD."paging".RD.".+?".LD.'\/'."paging".RD."/s", "", ee()->TMPL->tagdata);
 		*/
 		
+
 		$tag_data = ee()->TMPL->tagdata;
+
+        // remove top level JSON/Array element 'data'
+        // we don't need it for tag output
+        $rows = $rows[0]['data'];
 						
 		$output = ee()->TMPL->parse_variables($tag_data, $rows);
 														
