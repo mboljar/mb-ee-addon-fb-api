@@ -82,9 +82,9 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 
 Examples for the [ExpressionEngine Facebook page](https://www.facebook.com/expressionengine/):
 
-`{exp:fb_graph_api:get node_id="expressionengine"}`
+`{exp:fb_graph_api:get node="expressionengine"}`
 
-`{exp:fb_graph_api:get node_id="359401999932"}`
+`{exp:fb_graph_api:get node="359401999932"}`
 
 ##### edge
 
@@ -94,7 +94,7 @@ Browse the [Facebook Graph API documentation][Facebook Graph API] and [Instagram
 
 Examples of getting events by using the events edge:
 
-`{exp:fb_graph_api:get node_id="[NODE]" edge="events"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="events"}`
 
 ##### fields
 
@@ -105,7 +105,7 @@ Browse the [Facebook Graph API documentation][Facebook Graph API] and [Instagram
 Examples for getting specific event fields:
 
 ```
-{exp:fb_graph_api:get node_id="[NODE ID]" edge="events" fields="id, name, description, cover{source}"}
+{exp:fb_graph_api:get node="[NODE]" edge="events" fields="id, name, description, cover{source}"}
 	{id}
 	{name}
 	{description}
@@ -126,7 +126,7 @@ _Only works for the `events` edge._
 
 This is an optional parameter but if you want to display canceled events it is required and must be set to **true**. Facebook omits canceled events by default.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="events" fields="id, name, description, is_canceled" include_canceled="true"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="events" fields="id, name, description, is_canceled" include_canceled="true"}`
 
 ##### since
 
@@ -137,10 +137,10 @@ _Facebook Page only. Does not work for Instagram._
 To narrow down the query to start from a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
 
 Example with YYYY-MM-DD format:
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2021-01-01"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" since="2021-01-01"}`
 
 Example with 10-digit UNIX timestamp format:
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="1609459200"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" since="1609459200"}`
 
 ##### until
 
@@ -151,10 +151,10 @@ _Facebook Page only. Does not work for Instagram._
 To narrow down the query to end at a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
 
 Example with YYYY-MM-DD format:
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2021-01-01"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" until="2021-01-01"}`
 
 Example with 10-digit UNIX timestamp format:
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="1609459200"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" until="1609459200"}`
 
 ##### sort
 
@@ -165,7 +165,7 @@ _The `events` edge seems to be one of the view that does._
 
 The fieldname to sort the query.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]"}`
 
 ##### order
 
@@ -176,7 +176,7 @@ _The `events` edge seems to be one of the view that does._
 
 The direction to order the query. Use **asc** or **desc**.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]" order="asc"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]" order="asc"}`
 
 ##### limit
 
@@ -184,7 +184,7 @@ The direction to order the query. Use **asc** or **desc**.
 
 To limit the amount of items returned, enter an integer.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" limit="10"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" limit="10"}`
 
 ##### paging
 
@@ -195,7 +195,7 @@ For placement/positioning the links `bottom`, `top` and `both` are supported. De
 
 Must be used in conjuction with `{paging}` tag pair.
 ```
-{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" paging="[bottom|top|both]"}
+{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" paging="[bottom|top|both]"}
 
 	{!-- your data variables --}
 
@@ -239,7 +239,7 @@ Set to `true`. Disabled by default.
 
 Returns pure JSON. All other parsing is omitted. Great when you want to use it in a JavaScript driven app i.e. a React.js app.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" json="true"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" json="true"}`
 
 ## Developer Settings
 

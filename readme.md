@@ -53,7 +53,7 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 #### Example Usage Facebook
 
 ```
-{exp:fb_graph_api:get node_id="[FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS]" edge="posts" fields="message,full_picture,permalink_url" limit=5}
+{exp:fb_graph_api:get node="[FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS]" edge="posts" fields="message,full_picture,permalink_url" limit=5}
   {if full_picture}<img src="full_picture">{/if}
   {message}
   {permalink_url}
@@ -63,7 +63,7 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 #### Example Usage Instagram
 
 ```
-{exp:fb_graph_api:get node_id="[INSTAGRAM BUSINESS or CREATOR ACCOUNT ID]" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
+{exp:fb_graph_api:get node="[INSTAGRAM BUSINESS or CREATOR ACCOUNT ID]" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
 	{id}
 	{timestamp}
 	{caption}
@@ -82,26 +82,30 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 
 Examples for the [ExpressionEngine Facebook page](https://www.facebook.com/expressionengine/):
 
-`{exp:fb_graph_api:get node_id="expressionengine"}`
+`{exp:fb_graph_api:get node="expressionengine"}`
 
-`{exp:fb_graph_api:get node_id="359401999932"}`
+`{exp:fb_graph_api:get node="359401999932"}`
 
 ##### edge
+
+[name of the edge]
 
 Browse the [Facebook Graph API documentation][Facebook Graph API] and [Instagram Graph API documentation][Instagram Graph API]  for available edges.
 
 Examples of getting events by using the events edge:
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="events"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="events"}`
 
 ##### fields
+
+[comma-separated list of fieldnames]
 
 Browse the [Facebook Graph API documentation][Facebook Graph API] and [Instagram Graph API documentation][Instagram Graph API]  for available fields.
 
 Examples for getting specific event fields:
 
 ```
-{exp:fb_graph_api:get node_id="[NODE ID]" edge="events" fields="id, name, description, cover{source}"}
+{exp:fb_graph_api:get node="[NODE]" edge="events" fields="id, name, description, cover{source}"}
 	{id}
 	{name}
 	{description}
@@ -115,69 +119,83 @@ _Notice the selection of the subfield `source` of the `cover` field and the way 
 
 ##### include_canceled
 
+[true]
+
 _Facebook Page only. Does not work for Instagram._     
 _Only works for the `events` edge._
 
 This is an optional parameter but if you want to display canceled events it is required and must be set to **true**. Facebook omits canceled events by default.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="events" fields="id, name, description, is_canceled" include_canceled="true"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="events" fields="id, name, description, is_canceled" include_canceled="true"}`
 
 ##### since
+
+[date in YYYY-MM-DD or UNIX timestamp format]
 
 _Facebook Page only. Does not work for Instagram._
 
 To narrow down the query to start from a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
 
 Example with YYYY-MM-DD format:
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2021-01-01"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" since="2021-01-01"}`
 
 Example with 10-digit UNIX timestamp format:
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="1609459200"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" since="1609459200"}`
 
 ##### until
+
+[date in YYYY-MM-DD or UNIX timestamp format]
 
 _Facebook Page only. Does not work for Instagram._
 
 To narrow down the query to end at a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
 
 Example with YYYY-MM-DD format:
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2021-01-01"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" until="2021-01-01"}`
 
 Example with 10-digit UNIX timestamp format:
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="1609459200"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" until="1609459200"}`
 
 ##### sort
+
+[fieldname to sort the results]
 
 _The official Facebook Graph API doesn't support sorting for most edges._     
 _The `events` edge seems to be one of the view that does._
 
 The fieldname to sort the query.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]"}`
 
 ##### order
+
+[asc | desc]
 
 _The official Facebook Graph API doesn't support sorting for most edges._     
 _The `events` edge seems to be one of the view that does._
 
 The direction to order the query. Use **asc** or **desc**.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]" order="asc"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" sort="[FIELDNAME]" order="asc"}`
 
 ##### limit
 
+[integer number]
+
 To limit the amount of items returned, enter an integer.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" limit="10"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" limit="10"}`
 
 ##### paging
+
+[bottom | top | both]
 
 For creating "previous", "first" and "next" page links.     
 For placement/positioning the links `bottom`, `top` and `both` are supported. Defaults to `bottom`.
 
 Must be used in conjuction with `{paging}` tag pair.
 ```
-{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" paging="[bottom|top|both]"}
+{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" paging="[bottom|top|both]"}
 
 	{!-- your data variables --}
 
@@ -215,11 +233,13 @@ You can put the `{paging}` tag pair anywhere _within_ the main tag. It doesn't m
 
 ##### json
 
+[true]
+
 Set to `true`. Disabled by default.
 
 Returns pure JSON. All other parsing is omitted. Great when you want to use it in a JavaScript driven app i.e. a React.js app.
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" json="true"}`
+`{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" json="true"}`
 
 ## Developer Settings
 
@@ -240,9 +260,23 @@ Uncheck for production websites.
 
 #### Variables
 
-* The variables the main tag returns match the fieldnames you select in the tag.
-* The browse link output variables are: `{previous_url}`, `{previous_text}` (optional), `{first_url}`, `{first_text}` (optional),`{next_url}`, `{next_text}` (optional).
-Instead of the `text` variables you can use your own text in the template.
+The variables the main tag returns match the fieldnames you select in the tag.
+
+The paging output variables are: 
+
+* `{previous_url}`,
+
+* `{previous_text}` (optional),
+
+* `{first_url}`, 
+
+* `{first_text}` (optional),
+
+* `{next_url}`, 
+
+* `{next_text}` (optional).
+
+  Instead of the `text` variables you can use your own text in the template.
 
 ## Changelog
 
@@ -280,7 +314,7 @@ Instead of the `text` variables you can use your own text in the template.
 
 ##### Code
 This add-on is built on Ron Hickson's Facebook Link add-on and the base code was completely written by him.
-I merely adapted the code to play nice with EE6 and make it more user-friendly by adding some parameters and settings.
+I merely adapted the code to play nice with EE3-EE6 and make it more user-friendly by adding parameters and settings.
 
 Without Ron Hickson this add-on would probably never have come to life.
 
