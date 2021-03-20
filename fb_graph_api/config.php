@@ -9,11 +9,13 @@
  * @link			https://github.com/Zignature/fb_graph_api/
  */
 
-if ( ! defined('FACEBOOK_GRAPH_API_NAME'))
+if ( ! defined('FB_GRAPH_API_MOD_NAME'))
 {
-    define('FACEBOOK_GRAPH_API_NAME', 'Facebook Graph API Explorer');
-    define('FACEBOOK_GRAPH_VERSION', 'v10.0');
+	define('FB_GRAPH_API_MOD_NAME', 'Facebook Graph API Explorer');
+	define('FB_GRAPH_API_MOD_VER', '1.1.0');
+	define('FACEBOOK_GRAPH_VERSION', 'v10.0');
 }
 
 /* End of file config.php */
 /* Location: ./system/user/addons/fb_graph_api/config.php */
+//EOF

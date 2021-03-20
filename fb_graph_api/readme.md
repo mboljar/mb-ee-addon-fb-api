@@ -12,18 +12,20 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 
 ## Requirements
 
-* ExpressionEngine 3+   
+* ExpressionEngine 3+
   Tested on EE 3.5.17, EE 4.3.8, EE 5.4.0, EE 6.0.3
-* a SSL (HTTPS) enabled website. Facebook requires HTTPS
-* a Facebook Developer account and a Facebook App (https://developers.facebook.com/docs/development/)
-* Facebook App ID and Facebook App Secret which you will get after creating an app in the Facebook Developer portal.
-* Facebook Login installed in the Facebook App Dashboard.
+* a SSL (HTTPS) enabled website. Facebook requires HTTPS for authentication.
 * a Facebook Page (not a personal profile).
+* a [Facebook Developer account](https://developers.facebook.com/) and a Facebook App.
+* Facebook App ID and Facebook App Secret which you will get after creating an app in the Facebook Developer portal.
+* `Facebook Login` installed in the Facebook App Dashboard with:
+  * `Client OAuth Login` enabled
+  * `Web OAuth Login` enabled
 * For Instagram:
   * an Instagram Business account or an Instagram Creator account.
-  * the Instagram Graph API installed in the Facebook App Dashboard.
+  * the `Instagram Graph API` installed in the Facebook App Dashboard.
 * The correct permissions (_You may have to apply for App Review_):
-  * For a Facebook page at least: `manage_pages`, `pages_show_list`
+  * For a Facebook page: `manage_pages`, `pages_show_list`
   * For Instagram: `instagram_basic`
 * Website domain(s) added to:
   * `App Dashboard -> Settings -> Advanced -> Domain Manager`
@@ -34,10 +36,15 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 * Download the add-on from GitHub and unzip the file to a folder of your choice
 * Copy `fb_graph_api/fb_graph_api` folder to `./system/user/addons/fb_graph_api`
 * Go to the add-ons page in your control panel and install the add-on
-* Go to the settings page of the add-on and fill in the form (App ID and App Secret) and click the `Save Settings` button.
+* Go to the settings page of the add-on and fill in the form (App ID and App Secret) and click the `Save Settings` button
 * After saving the settings click the `Get Access Tokens` button. A list of pages you manage will appear
-* Select the Facebook page you want to query and click the `Save Token` button
+* Select the token of the Facebook Page you want to query and click the `Save Token` button
 * The Facebook Graph API Explorer add-on is now installed and activated
+
+## Updating
+
+* Copy `fb_graph_api/fb_graph_api` folder to `./system/user/addons/fb_graph_api` replacing the files in the destination folder
+* Go to the add-ons page in your control panel and use the update button
 
 ## Usage
 
@@ -46,7 +53,7 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 #### Example Usage Facebook
 
 ```
-{exp:fb_graph_api:get node_id="FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS" edge="posts" fields="message,full_picture,permalink_url" limit=5}
+{exp:fb_graph_api:get node="[FACEBOOK PAGE ID or FACEBOOK PAGE ALIAS]" edge="posts" fields="message,full_picture,permalink_url" limit=5}
   {if full_picture}<img src="full_picture">{/if}
   {message}
   {permalink_url}
@@ -56,7 +63,7 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 #### Example Usage Instagram
 
 ```
-{exp:fb_graph_api:get node_id="INSTAGRAM BUSINESS or CREATOR ACCOUNT ID" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
+{exp:fb_graph_api:get node="[INSTAGRAM BUSINESS or CREATOR ACCOUNT ID]" edge="media" fields="id,timestamp,caption,media_url,permalink,like_count,comments_count" limit="12"}
 	{id}
 	{timestamp}
 	{caption}
@@ -69,7 +76,7 @@ With this add-on you can create custom Facebook Graph API and Instagram Graph AP
 
 #### Parameters
 
-##### node_id (*required*)
+##### node (*required*)
 
 [Facebook Page ID | Facebook Page Alias | Instagram Business Account ID | Instagram Creator Account ID]
 
@@ -81,13 +88,17 @@ Examples for the [ExpressionEngine Facebook page](https://www.facebook.com/expre
 
 ##### edge
 
+[name of the edge]
+
 Browse the [Facebook Graph API documentation][Facebook Graph API] and [Instagram Graph API documentation][Instagram Graph API]  for available edges.
 
 Examples of getting events by using the events edge:
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="events"}`
+`{exp:fb_graph_api:get node_id="[NODE]" edge="events"}`
 
 ##### fields
+
+[comma-separated list of fieldnames]
 
 Browse the [Facebook Graph API documentation][Facebook Graph API] and [Instagram Graph API documentation][Instagram Graph API]  for available fields.
 
@@ -108,7 +119,10 @@ _Notice the selection of the subfield `source` of the `cover` field and the way 
 
 ##### include_canceled
 
-Facebook Page only. Does not work for Instagram.
+[true]
+
+_Facebook Page only. Does not work for Instagram._     
+_Only works for the `events` edge._
 
 This is an optional parameter but if you want to display canceled events it is required and must be set to **true**. Facebook omits canceled events by default.
 
@@ -116,23 +130,38 @@ This is an optional parameter but if you want to display canceled events it is r
 
 ##### since
 
-Facebook Page only. Does not work for Instagram.
+[date in YYYY-MM-DD or UNIX timestamp format]
 
-To narrow down the query to start from a specific date.
+_Facebook Page only. Does not work for Instagram._
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2020-12-01"}`
+To narrow down the query to start from a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
+
+Example with YYYY-MM-DD format:
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="2021-01-01"}`
+
+Example with 10-digit UNIX timestamp format:
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" since="1609459200"}`
 
 ##### until
 
-Facebook Page only. Does not work for Instagram.
+[date in YYYY-MM-DD or UNIX timestamp format]
 
-To narrow down the query to end at a specific date.
+_Facebook Page only. Does not work for Instagram._
 
-`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2020-12-01"}`
+To narrow down the query to end at a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
+
+Example with YYYY-MM-DD format:
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="2021-01-01"}`
+
+Example with 10-digit UNIX timestamp format:
+`{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" until="1609459200"}`
 
 ##### sort
 
-Facebook Page only. Does not work for Instagram.
+[fieldname to sort the results]
+
+_The official Facebook Graph API doesn't support sorting for most edges._     
+_The `events` edge seems to be one of the view that does._
 
 The fieldname to sort the query.
 
@@ -140,7 +169,10 @@ The fieldname to sort the query.
 
 ##### order
 
-Facebook Page only. Does not work for Instagram.
+[asc | desc]
+
+_The official Facebook Graph API doesn't support sorting for most edges._     
+_The `events` edge seems to be one of the view that does._
 
 The direction to order the query. Use **asc** or **desc**.
 
@@ -148,27 +180,121 @@ The direction to order the query. Use **asc** or **desc**.
 
 ##### limit
 
-To limit the amount of data returned.
+[integer number]
+
+To limit the amount of items returned, enter an integer.
 
 `{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" limit="10"}`
 
+##### paging
+
+[bottom | top | both]
+
+For creating "previous", "first" and "next" page links.     
+For placement/positioning the links `bottom`, `top` and `both` are supported. Defaults to `bottom`.
+
+Must be used in conjuction with `{paging}` tag pair.
+```
+{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" paging="[bottom|top|both]"}
+
+	{!-- your data variables --}
+
+		{paging}
+			{previous_page}
+				{if previous_url}
+					<a href="{previous_url}">{previous_text}</a>
+				{if:else}
+					{previous_text}
+				{/if}
+			{/previous_page}
+
+			{first_page}
+				{if first_url}
+					<a href="{first_url}">{first_text}</a>
+				{if:else}
+					{first_text}
+				{/if}
+			{/first_page}
+
+			{next_page}
+				{if next_url}
+					<a href="{next_url}">{next_text}</a>
+				{if:else}
+					{next_text}
+				{/if}
+			{/next_page}
+		{/paging}
+
+{/exp:fb_graph_api:get}
+```
+
+You can put the `{paging}` tag pair anywhere _within_ the main tag. It doesn't matter where, the add-on will place it where you assign it.     
+**Note:** only use the `{paging}` tag pair once, otherwise you get duplicate paging links!
+
 ##### json
+
+[true]
+
+Set to `true`. Disabled by default.
 
 Returns pure JSON. All other parsing is omitted. Great when you want to use it in a JavaScript driven app i.e. a React.js app.
 
 `{exp:fb_graph_api:get node_id="[NODE ID]" edge="[EDGE]" fields="[FIELDNAMES]" json="true"}`
 
+## Developer Settings
+
+##### Show output error messages
+
+Displays output error messages.     
+Best to uncheck for production websites.
+
+##### Pretty-print JSON
+
+It makes JSON output more readable.     
+Uncheck for production websites.
+
+##### Show Node Metadata
+
+Displays node metadata in the JSON output to discover supported edges for your node.     
+Uncheck for production websites.
+
 #### Variables
 
-The variables this add-on returns match the fieldnames you select in the tag.
+The variables the main tag returns match the fieldnames you select in the tag.
+
+The paging output variables are: 
+
+* `{previous_url}`,
+
+* `{previous_text}` (optional),
+
+* `{first_url}`, 
+
+* `{first_text}` (optional),
+
+* `{next_url}`, 
+
+* `{next_text}` (optional).
+
+  Instead of the `text` variables you can use your own text in the template.
 
 ## Changelog
+
+### 1.1.0
+
+* Added cursor-based browsing/paging links
+* Added `paging` parameter
+* Renamed parameter `node_id` to `node` (can't seem to make up my mind)
+* Added developer settings (error messages, pretty-print JSON, JSON Node metadata)
+  * Added database table for Developer Settings
+  * Created separate pages for Facebook App Settings and Developer Settings in the control panel
+* Cleaned up the code  as per ExpressionEngine guidelines
 
 ### 1.0.2
 
 * Fixed initial install error notices where an undefined array was referenced
 * Restructured the repo and rewritten readme.md as per ExpressionEngine guidelines
-* Removed `{data}{/data}` tag pair from the output. The `data` item remains as top level item in JSON output
+* Removed `{data}{/data}` tag pair from the output. The `data` item remains as top level key in JSON output
 
 ### 1.0.1
 
@@ -182,21 +308,24 @@ The variables this add-on returns match the fieldnames you select in the tag.
 
 ### 1.0.0
 
-- Released!
+- Initial release
 
-## Acknowledgement
+## Attribution
 
-This add-on is built on Ron Hickson's Facebook Link add-on and 99% of the code was written by him. I merely adapted the code to play nice with EE6 and make it more user-friendly by adding some parameters.
+##### Code
+This add-on is built on Ron Hickson's Facebook Link add-on and the base code was completely written by him.
+I merely adapted the code to play nice with EE3-EE6 and make it more user-friendly by adding parameters and settings.
 
 Without Ron Hickson this add-on would probably never have come to life.
 
 Ron's Facebook Link add-on can be found at:
 
-* Devot-ee: [https://devot-ee.com/add-ons/facebook-link](https://devot-ee.com/add-ons/facebook-link)
-* Github: [https://github.com/rhgarage/fb_link](https://github.com/rhgarage/fb_link)
-* EE-Forge: [https://ee-forge.com/add-ons/facebook_link
+- Devot-ee: [https://devot-ee.com/add-ons/facebook-link](https://devot-ee.com/add-ons/facebook-link)
+- GitHub: [https://github.com/rhgarage/fb_link](https://github.com/rhgarage/fb_link)
+- EE-Forge: [https://ee-forge.com/add-ons/facebook_link
 
-
+##### Control panel icon
+The icon used in the control panel is [_social media scanner_](https://thenounproject.com/term/social-media-scanner/1954298/) by [_priyanka_](https://thenounproject.com/creativepriyanka/) from the [Noun Project](https://thenounproject.com/)
 
 [Facebook Graph API]: https://developers.facebook.com/docs/graph-api/using-graph-api
 [Instagram Graph API]: https://developers.facebook.com/docs/instagram-api
