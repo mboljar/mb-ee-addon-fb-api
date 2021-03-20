@@ -1,4 +1,4 @@
-# Facebook Graph API Explorer
+# Facebook Graph API Explorer for ExpressionEngine 3+
 
 Facebook and Instagram feeds on your website the way _you_ want it!
 
