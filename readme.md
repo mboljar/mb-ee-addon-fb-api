@@ -1,4 +1,4 @@
-# Facebook Graph API Explorer for ExpressionEngine 3+
+# Facebook Graph API Explorer
 
 Facebook and Instagram feeds on your website the way _you_ want it!
 
@@ -121,7 +121,7 @@ _Notice the selection of the subfield `source` of the `cover` field and the way 
 
 [true]
 
-_Facebook Page only. Does not work for Instagram._     
+_Facebook Page only. Does not work for Instagram._
 _Only works for the `events` edge._
 
 This is an optional parameter but if you want to display canceled events it is required and must be set to **true**. Facebook omits canceled events by default.
@@ -160,7 +160,7 @@ Example with 10-digit UNIX timestamp format:
 
 [fieldname to sort the results]
 
-_The official Facebook Graph API doesn't support sorting for most edges._     
+_The official Facebook Graph API doesn't support sorting for most edges._
 _The `events` edge seems to be one of the view that does._
 
 The fieldname to sort the query.
@@ -171,7 +171,7 @@ The fieldname to sort the query.
 
 [asc | desc]
 
-_The official Facebook Graph API doesn't support sorting for most edges._     
+_The official Facebook Graph API doesn't support sorting for most edges._
 _The `events` edge seems to be one of the view that does._
 
 The direction to order the query. Use **asc** or **desc**.
@@ -190,7 +190,7 @@ To limit the amount of items returned, enter an integer.
 
 [bottom | top | both]
 
-For creating "previous", "first" and "next" page links.     
+For creating "previous", "first" and "next" page links.
 For placement/positioning the links `bottom`, `top` and `both` are supported. Defaults to `bottom`.
 
 Must be used in conjuction with `{paging}` tag pair.
@@ -228,7 +228,7 @@ Must be used in conjuction with `{paging}` tag pair.
 {/exp:fb_graph_api:get}
 ```
 
-You can put the `{paging}` tag pair anywhere _within_ the main tag. It doesn't matter where, the add-on will place it where you assign it.     
+You can put the `{paging}` tag pair anywhere _within_ the main tag. It doesn't matter where, the add-on will place it where you assign it.
 **Note:** only use the `{paging}` tag pair once, otherwise you get duplicate paging links!
 
 ##### json
@@ -245,40 +245,47 @@ Returns pure JSON. All other parsing is omitted. Great when you want to use it i
 
 ##### Show output error messages
 
-Displays output error messages.     
+Displays output error messages.
 Best to uncheck for production websites.
 
 ##### Pretty-print JSON
 
-It makes JSON output more readable.     
+It makes JSON output more readable.
 Uncheck for production websites.
 
 ##### Show Node Metadata
 
-Displays node metadata in the JSON output to discover supported edges for your node.     
+Displays node metadata in the JSON output to discover supported edges for your node.
 Uncheck for production websites.
 
 #### Variables
 
-The variables the main tag returns match the fieldnames you select in the tag.
+The variables the main tag returns match the fieldnames you select in the fields parameter.
 
-The paging output variables are: 
+The paging output variables are:
 
 * `{previous_url}`,
 
-* `{previous_text}` (optional),
+* `{previous_text}` (optional, defaults to 'previous'),
 
-* `{first_url}`, 
+* `{first_url}`,
 
-* `{first_text}` (optional),
+* `{first_text}` (optional, defaults to 'first'),
 
-* `{next_url}`, 
+* `{next_url}`,
 
-* `{next_text}` (optional).
+* `{next_text}` (optional, defaults to 'next').
 
   Instead of the `text` variables you can use your own text in the template.
 
 ## Changelog
+
+### 1.1.1
+
+* Fixed bug for EE3, EE4 and EE5 where `$sidebar->addDivider();` is not supported
+* Added some strings to 'fb_graph_api_lang.php' to replace some leftover hardcoded language strings
+* Added constant `FB_GRAPH_API_MOD_VER` to `config.php`
+* Renamed constant `FACEBOOK_GRAPH_API_NAME` to `FB_GRAPH_API_MOD_NAME` in `config.php`
 
 ### 1.1.0
 
@@ -288,7 +295,7 @@ The paging output variables are:
 * Added developer settings (error messages, pretty-print JSON, JSON Node metadata)
   * Added database table for Developer Settings
   * Created separate pages for Facebook App Settings and Developer Settings in the control panel
-* Cleaned up the code  as per ExpressionEngine guidelines
+* Cleaned up the code as per ExpressionEngine guidelines
 
 ### 1.0.2
 
