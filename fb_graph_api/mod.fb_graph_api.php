@@ -21,11 +21,11 @@ class Fb_graph_api
 		{
 			$row = $query->row();
 			$this->settings = array(
-				'id'                => $row->id,
-				'app_id'            => $row->app_id,
-				'app_secret'        => $row->app_secret,
-				'default_token'     => $row->default_token,
-				'tokens'            => $row->tokens
+				'id'            => $row->id,
+				'app_id'        => $row->app_id,
+				'app_secret'    => $row->app_secret,
+				'default_token' => $row->default_token,
+				'tokens'        => $row->tokens
 			);
 		}
 
@@ -42,7 +42,7 @@ class Fb_graph_api
 			);
 		}
 
-        $this->uristr        = ee()->uri->uri_string();
+        $this->uristr = ee()->uri->uri_string();
     }
 
     /**
@@ -52,31 +52,30 @@ class Fb_graph_api
      */
 	public function get()
     {
-
 		// Load Typography Class to parse data
 		ee()->load->library('typography');
 		ee()->typography->initialize();
 		ee()->load->helper('url');
         ee()->load->helper('fb_graph_api_helper');
 
-        $request = '';
-		$output = '';
+        $request     = '';
+		$output      = '';
 		$error_title = '';
-		$error_msg = '';
+		$error_msg   = '';
 
 		$params = array(
-            'token'             => ee()->TMPL->fetch_param('token', $this->settings['default_token']),
-            'node'              => ee()->TMPL->fetch_param('node'),
-            'edge'              => ee()->TMPL->fetch_param('edge'),
-            'fields'            => ee()->TMPL->fetch_param('fields'),
-            'include_canceled'  => ee()->TMPL->fetch_param('include_canceled', 'false'),
-            'since'             => ee()->TMPL->fetch_param('since'),
-            'until'             => ee()->TMPL->fetch_param('until'),
-            'sort'              => ee()->TMPL->fetch_param('sort'),
-            'order'             => ee()->TMPL->fetch_param('order'),
-            'limit'             => ee()->TMPL->fetch_param('limit'),
-            'paging'            => ee()->TMPL->fetch_param('paging', ''),
-            'json'              => ee()->TMPL->fetch_param('json', 'false')
+            'token'            => ee()->TMPL->fetch_param('token', $this->settings['default_token']),
+            'node'             => ee()->TMPL->fetch_param('node'),
+            'edge'             => ee()->TMPL->fetch_param('edge'),
+            'fields'           => ee()->TMPL->fetch_param('fields'),
+            'include_canceled' => ee()->TMPL->fetch_param('include_canceled', 'false'),
+            'since'            => ee()->TMPL->fetch_param('since'),
+            'until'            => ee()->TMPL->fetch_param('until'),
+            'sort'             => ee()->TMPL->fetch_param('sort'),
+            'order'            => ee()->TMPL->fetch_param('order'),
+            'limit'            => ee()->TMPL->fetch_param('limit'),
+            'paging'           => ee()->TMPL->fetch_param('paging', ''),
+            'json'             => ee()->TMPL->fetch_param('json', 'false')
 		);
 
 		// Build the request
@@ -155,8 +154,8 @@ class Fb_graph_api
 		}
 		catch (FacebookResponseException $e)
 		{
-			$error_title = 'Facebook Graph API Response Error: ';
-			$error_msg .=  $e->getMessage();
+			$error_title = lang('err_fb_resp_title');
+			$error_msg   =  $e->getMessage();
 			// Log error message
 			ee()->load->library('logger');
 			ee()->logger->developer($error_title . $error_msg);
@@ -174,8 +173,8 @@ class Fb_graph_api
 		}
 		catch (FacebookSDKException $e)
 		{
-			$error_title = 'Facebook Graph SDK Error: ';
-			$error_msg .= $e->getMessage();
+			$error_title = lang('err_fb_sdk_title');
+			$error_msg   = $e->getMessage();
 			// Log error message
 			ee()->load->library('logger');
 			ee()->logger->developer($error_title . $error_msg);
@@ -252,7 +251,7 @@ class Fb_graph_api
 				}
 
 				// check for a 'previous' page.
-				if (array_key_exists('paging:previous', $paging) )
+				if (array_key_exists('paging:previous', $paging))
 				{
 					// yes there is a previous page. store its cursor
 					$paging_cursor_before = $paging_cursors['cursors:before'];
@@ -299,9 +298,8 @@ class Fb_graph_api
 				// paging links wanted, but no paging tags found.
 				// return error message
 				{
-					$error_title = 'Parameter "paging" is set, but no &#123;paging&#125;&#123;/paging&#125; tag pair was found';
-					$error_msg = 'Within the main tag pair you need to create a template for the paging links.<br>';
-					$error_msg .= 'You can find a basic template in the manual.';
+					$error_title = lang('err_paging_title');
+					$error_msg   = lang('err_paging_msg');
 
 					if ($this->dev_settings['show_error_msg'] === 1)
 					{
@@ -337,16 +335,20 @@ class Fb_graph_api
      * @param	bool	whether or not to pretty-print JSON
      * @return	void
      */
-	public function output_json($data, $pretty_print = false)
+	public function output_json($data, $pretty_print = FALSE)
 	{
 
-		if (ee()->config->item('send_headers') === 'y') {
+		if (ee()->config->item('send_headers') === 'y')
+		{
 			ee()->load->library('user_agent', array(), 'user_agent');
 
 			// many browsers do not consistently like this content type
-			if (is_array($data) && in_array(ee()->user_agent->browser(), array('Safari', 'Chrome', 'Firefox'))) {
+			if (is_array($data) && in_array(ee()->user_agent->browser(), array('Safari', 'Chrome', 'Firefox')))
+			{
 				@header('Content-Type: application/json; charset=UTF-8');
-			} else {
+			}
+			else
+			{
 				@header('Content-Type: text/html; charset=UTF-8');
 			}
 		}

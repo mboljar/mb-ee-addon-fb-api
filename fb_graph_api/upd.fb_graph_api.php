@@ -126,15 +126,16 @@ class Fb_graph_api_upd {
 
 			// Delete deprecated helper file
 			$delete_file = dirname(__FILE__).'/helpers/fb_parse_helper.php';
+			$file_name = 'fb_parse_helper.php';
 			// Let's log the event
 			ee()->load->library('logger');
 			if (!unlink($delete_file))
 			{
-				ee()->logger->developer("'$delete_file' cannot be deleted due to an error");
+				ee()->logger->developer(FB_GRAPH_API_MOD_NAME . " : " . lang('log_deprecated_helper') . " '$file_name' " . lang('log_dhp_not_deleted'));
 			}
 			else
 			{
-				ee()->logger->developer("'$delete_file' has been deleted");
+				ee()->logger->developer(FB_GRAPH_API_MOD_NAME . " : " . lang('log_deprecated_helper') . " '$file_name' " . lang('log_dhp_deleted'));
 			}
 		}
 
