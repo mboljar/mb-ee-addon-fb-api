@@ -121,7 +121,7 @@ _Notice the selection of the subfield `source` of the `cover` field and the way 
 
 [true]
 
-_Facebook Page only. Does not work for Instagram._
+_Facebook Page only. Does not work for Instagram._     
 _Only works for the `events` edge._
 
 This is an optional parameter but if you want to display canceled events it is required and must be set to **true**. Facebook omits canceled events by default.
@@ -136,10 +136,10 @@ _Facebook Page only. Does not work for Instagram._
 
 To narrow down the query to start from a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
 
-Example with YYYY-MM-DD format:
+Example with YYYY-MM-DD format:     
 `{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" since="2021-01-01"}`
 
-Example with 10-digit UNIX timestamp format:
+Example with 10-digit UNIX timestamp format:     
 `{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" since="1609459200"}`
 
 ##### until
@@ -150,17 +150,17 @@ _Facebook Page only. Does not work for Instagram._
 
 To narrow down the query to end at a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
 
-Example with YYYY-MM-DD format:
+Example with YYYY-MM-DD format:     
 `{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" until="2021-01-01"}`
 
-Example with 10-digit UNIX timestamp format:
+Example with 10-digit UNIX timestamp format:     
 `{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" until="1609459200"}`
 
 ##### sort
 
 [fieldname to sort the results]
 
-_The official Facebook Graph API doesn't support sorting for most edges._
+_The official Facebook Graph API doesn't support sorting for most edges._     
 _The `events` edge seems to be one of the view that does._
 
 The fieldname to sort the query.
@@ -171,7 +171,7 @@ The fieldname to sort the query.
 
 [asc | desc]
 
-_The official Facebook Graph API doesn't support sorting for most edges._
+_The official Facebook Graph API doesn't support sorting for most edges._     
 _The `events` edge seems to be one of the view that does._
 
 The direction to order the query. Use **asc** or **desc**.
@@ -190,7 +190,7 @@ To limit the amount of items returned, enter an integer.
 
 [bottom | top | both]
 
-For creating "previous", "first" and "next" page links.
+For creating "previous", "first" and "next" page links.     
 For placement/positioning the links `bottom`, `top` and `both` are supported. Defaults to `bottom`.
 
 Must be used in conjuction with `{paging}` tag pair.
@@ -228,7 +228,7 @@ Must be used in conjuction with `{paging}` tag pair.
 {/exp:fb_graph_api:get}
 ```
 
-You can put the `{paging}` tag pair anywhere _within_ the main tag. It doesn't matter where, the add-on will place it where you assign it.
+You can put the `{paging}` tag pair anywhere _within_ the main tag. It doesn't matter where, the add-on will place it where you assign it.     
 **Note:** only use the `{paging}` tag pair once, otherwise you get duplicate paging links!
 
 ##### json
@@ -245,17 +245,17 @@ Returns pure JSON. All other parsing is omitted. Great when you want to use it i
 
 ##### Show output error messages
 
-Displays output error messages.
+Displays output error messages.     
 Best to uncheck for production websites.
 
 ##### Pretty-print JSON
 
-It makes JSON output more readable.
+It makes JSON output more readable.     
 Uncheck for production websites.
 
 ##### Show Node Metadata
 
-Displays node metadata in the JSON output to discover supported edges for your node.
+Displays node metadata in the JSON output to discover supported edges for your node.     
 Uncheck for production websites.
 
 #### Variables
@@ -265,18 +265,13 @@ The variables the main tag returns match the fieldnames you select in the fields
 The paging output variables are:
 
 * `{previous_url}`,
-
 * `{previous_text}` (optional, defaults to 'previous'),
-
 * `{first_url}`,
-
 * `{first_text}` (optional, defaults to 'first'),
-
 * `{next_url}`,
-
 * `{next_text}` (optional, defaults to 'next').
 
-  Instead of the `text` variables you can use your own text in the template.
+Instead of the `text` variables you can use your own text in the template.
 
 ## Changelog
 
@@ -320,7 +315,7 @@ The paging output variables are:
 ## Attribution
 
 ##### Code
-This add-on is built on Ron Hickson's Facebook Link add-on and the base code was completely written by him.
+This add-on is built on Ron Hickson's Facebook Link add-on and the base code was completely written by him.     
 I merely adapted the code to play nice with EE3-EE6 and make it more user-friendly by adding parameters and settings.
 
 Without Ron Hickson this add-on would probably never have come to life.
