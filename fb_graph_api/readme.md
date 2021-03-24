@@ -136,10 +136,10 @@ _Facebook Page only. Does not work for Instagram._
 
 To narrow down the query to start from a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
 
-Example with YYYY-MM-DD format:
+Example with YYYY-MM-DD format:     
 `{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" since="2021-01-01"}`
 
-Example with 10-digit UNIX timestamp format:
+Example with 10-digit UNIX timestamp format:     
 `{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" since="1609459200"}`
 
 ##### until
@@ -150,10 +150,10 @@ _Facebook Page only. Does not work for Instagram._
 
 To narrow down the query to end at a specific date, enter a date in `YYYY-MM-DD` format or a 10-digit UNIX timestamp.
 
-Example with YYYY-MM-DD format:
+Example with YYYY-MM-DD format:     
 `{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" until="2021-01-01"}`
 
-Example with 10-digit UNIX timestamp format:
+Example with 10-digit UNIX timestamp format:     
 `{exp:fb_graph_api:get node="[NODE]" edge="[EDGE]" fields="[FIELDNAMES]" until="1609459200"}`
 
 ##### sort
@@ -260,25 +260,27 @@ Uncheck for production websites.
 
 #### Variables
 
-The variables the main tag returns match the fieldnames you select in the tag.
+The variables the main tag returns match the fieldnames you select in the fields parameter.
 
-The paging output variables are: 
+The paging output variables are:
 
 * `{previous_url}`,
+* `{previous_text}` (optional, defaults to 'previous'),
+* `{first_url}`,
+* `{first_text}` (optional, defaults to 'first'),
+* `{next_url}`,
+* `{next_text}` (optional, defaults to 'next').
 
-* `{previous_text}` (optional),
-
-* `{first_url}`, 
-
-* `{first_text}` (optional),
-
-* `{next_url}`, 
-
-* `{next_text}` (optional).
-
-  Instead of the `text` variables you can use your own text in the template.
+Instead of the `text` variables you can use your own text in the template.
 
 ## Changelog
+
+### 1.1.1
+
+* Fixed bug for EE3, EE4 and EE5 where `$sidebar->addDivider();` is not supported
+* Added some strings to 'fb_graph_api_lang.php' to replace some leftover hardcoded language strings
+* Added constant `FB_GRAPH_API_MOD_VER` to `config.php`
+* Renamed constant `FACEBOOK_GRAPH_API_NAME` to `FB_GRAPH_API_MOD_NAME` in `config.php`
 
 ### 1.1.0
 
@@ -288,7 +290,7 @@ The paging output variables are:
 * Added developer settings (error messages, pretty-print JSON, JSON Node metadata)
   * Added database table for Developer Settings
   * Created separate pages for Facebook App Settings and Developer Settings in the control panel
-* Cleaned up the code  as per ExpressionEngine guidelines
+* Cleaned up the code as per ExpressionEngine guidelines
 
 ### 1.0.2
 
@@ -313,7 +315,7 @@ The paging output variables are:
 ## Attribution
 
 ##### Code
-This add-on is built on Ron Hickson's Facebook Link add-on and the base code was completely written by him.
+This add-on is built on Ron Hickson's Facebook Link add-on and the base code was completely written by him.     
 I merely adapted the code to play nice with EE3-EE6 and make it more user-friendly by adding parameters and settings.
 
 Without Ron Hickson this add-on would probably never have come to life.

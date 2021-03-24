@@ -79,15 +79,21 @@ class Fb_graph_api_mcp
 		$sidebar = ee('CP/Sidebar')->make();
 
 		$app_settings = $sidebar->addHeader(lang('app_settings'), ee('CP/URL', 'addons/settings/fb_graph_api/app_settings'));
+
 		$dev_settings = $sidebar->addHeader(lang('dev_settings'), ee('CP/URL', 'addons/settings/fb_graph_api/dev_settings'));
-        $sidebar->addDivider();
+
+		if (version_compare(APP_VER, '6.0.0', '>='))
+		{
+            $sidebar->addDivider();
+        }
+
 		$manual = $sidebar->addHeader(lang('manual'), ee('CP/URL', 'addons/manual/fb_graph_api'));
 	}
 
 
 	public function index()
 	{
-		// No index, redirect to app settings directly
+		// No index, redirect to app settings
 		ee()->functions->redirect(ee('CP/URL', 'addons/settings/fb_graph_api/app_settings')->compile());
 	}
 
@@ -151,8 +157,8 @@ class Fb_graph_api_mcp
 		ee()->load->helper('form');
 
 		$data = array(
-			'app_id'            => ee()->input->post('app_id'),
-			'app_secret'        => ee()->input->post('app_secret')
+			'app_id'     => ee()->input->post('app_id'),
+			'app_secret' => ee()->input->post('app_secret')
 		);
 
         $fbid = ee()->db->select('id')->get('fb_graph_api');
@@ -164,7 +170,7 @@ class Fb_graph_api_mcp
             // If settings changed then clear the old tokens
             if($data['app_id'] != $this->settings['app_id'] || $data['app_secret'] != $this->settings['app_secret']) {
                 $data['default_token'] = NULL;
-                $data['tokens'] = NULL;
+                $data['tokens']        = NULL;
             }
 			ee()->db->update('fb_graph_api', $data, $id);
 		}
@@ -218,8 +224,8 @@ class Fb_graph_api_mcp
         ee()->load->library('logger');
 
         $fb = new Facebook(array(
-            'app_id' => $this->settings['app_id'],
-            'app_secret' => $this->settings['app_secret'],
+            'app_id'                => $this->settings['app_id'],
+            'app_secret'            => $this->settings['app_secret'],
             'default_graph_version' => FACEBOOK_GRAPH_VERSION
         ));
 
@@ -282,7 +288,7 @@ class Fb_graph_api_mcp
             catch (\Exception $ex)
             {
                 // Handle a token error
-                ee()->logger->developer('FB Link Error: ' . $ex->getMessage());
+                ee()->logger->developer(FB_GRAPH_API_MOD_NAME . ': ' . $ex->getMessage());
             }
 
             // Now we can get page tokens
