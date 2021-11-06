@@ -11,22 +11,53 @@
     </fieldset>
 
     <fieldset class="col-group">
-        <div class="setting-txt col w-8">
+        <div class="setting-txt col w-6">
             <h3><?=lang('app_id');?></h3>
             <em><?=lang('app_id_desc');?></em>
         </div>
-        <div class="setting-field col w-8 last">
+        <div class="setting-field col w-6 last">
             <?=form_input('app_id', $app_id);?>
         </div>
     </fieldset>
 
     <fieldset class="col-group">
-        <div class="setting-txt col w-8">
+        <div class="setting-txt col w-6">
             <h3><?=lang('app_secret');?></h3>
             <em><?=lang('app_secret_desc');?></em>
         </div>
-        <div class="setting-field col w-8 last">
+        <div class="setting-field col w-6 last">
             <?=form_input('app_secret', $app_secret);?>
+        </div>
+    </fieldset>
+
+<fieldset class="col-group">
+    <div class="setting-txt col w-6">
+        <h3><?=lang('app_graph_ver_min');?></h3>
+        <em><?=lang('app_graph_ver_min_max_desc');?></em>
+    </div>
+    <div class="setting-field col w-6 last">
+        <?=form_input('app_graph_ver_min', $app_graph_ver_min);?>
+    </div>
+</fieldset>
+
+<fieldset class="col-group">
+    <div class="setting-txt col w-6">
+        <h3><?=lang('app_graph_ver_max');?></h3>
+        <em><?=lang('app_graph_ver_min_max_desc');?></em>
+    </div>
+    <div class="setting-field col w-6 last">
+        <?=form_input('app_graph_ver_max', $app_graph_ver_max);?>
+    </div>
+</fieldset>
+
+    <fieldset class="col-group">
+        <div class="setting-txt col w-6">
+            <h3><?=lang('app_graph_ver');?></h3>
+            <em><?=lang('app_graph_ver_desc');?></em>
+        </div>
+        <div class="setting-field col w-6 last">
+            <?php $versions = array(); for ($i = $app_graph_ver_min; $i <= $app_graph_ver_max; $i++) { $versions += ['v'.$i.'.0' => 'v'.$i.'.0']; }?>
+            <?=form_dropdown('app_graph_ver', $versions, $app_graph_ver);?>
         </div>
     </fieldset>
 

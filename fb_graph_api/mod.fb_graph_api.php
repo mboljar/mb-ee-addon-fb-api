@@ -21,11 +21,14 @@ class Fb_graph_api
 		{
 			$row = $query->row();
 			$this->settings = array(
-				'id'            => $row->id,
-				'app_id'        => $row->app_id,
-				'app_secret'    => $row->app_secret,
-				'default_token' => $row->default_token,
-				'tokens'        => $row->tokens
+				'id'                => $row->id,
+				'app_id'            => $row->app_id,
+				'app_secret'        => $row->app_secret,
+				'app_graph_ver_min' => $row->app_graph_ver_min,
+				'app_graph_ver_max' => $row->app_graph_ver_max,
+				'app_graph_ver'     => $row->app_graph_ver,
+				'default_token'     => $row->default_token,
+				'tokens'            => $row->tokens
 			);
 		}
 
@@ -57,6 +60,7 @@ class Fb_graph_api
 		ee()->typography->initialize();
 		ee()->load->helper('url');
         ee()->load->helper('fb_graph_api_helper');
+		ee()->lang->loadfile('fb_graph_api');
 
         $request     = '';
 		$output      = '';
@@ -72,7 +76,7 @@ class Fb_graph_api
             'since'            => ee()->TMPL->fetch_param('since'),
             'until'            => ee()->TMPL->fetch_param('until'),
             'sort'             => ee()->TMPL->fetch_param('sort'),
-            'order'            => ee()->TMPL->fetch_param('order'),
+            'time_filter'      => ee()->TMPL->fetch_param('time_filter'),
             'limit'            => ee()->TMPL->fetch_param('limit'),
             'paging'           => ee()->TMPL->fetch_param('paging', ''),
             'json'             => ee()->TMPL->fetch_param('json', 'false')
@@ -113,9 +117,9 @@ class Fb_graph_api
 			$request .= "&sort=" . $params['sort'];
 		}
 
-		if ( ! empty($params['order']))
+		if ( ! empty($params['time_filter']))
 		{
-			$request .= "&order=" . $params['order'];
+			$request .= "&time_filter=" . $params['time_filter'];
 		}
 
 		if ( ! empty($params['limit']))
@@ -143,7 +147,7 @@ class Fb_graph_api
 		$fb = new Facebook(array(
 			'app_id'                => $this->settings['app_id'],
 			'app_secret'            => $this->settings['app_secret'],
-			'default_graph_version' => FACEBOOK_GRAPH_VERSION
+			'default_graph_version' => $this->settings['app_graph_ver']
 		));
 
 		// get the data from Facebook
@@ -152,6 +156,7 @@ class Fb_graph_api
 			// We need to set the index for the parser later
 			$response = $fb->get($request, $params['token']);
 		}
+
 		catch (FacebookResponseException $e)
 		{
 			$error_title = lang('err_fb_resp_title');
@@ -202,7 +207,8 @@ class Fb_graph_api
 		{
 			$rows[0] = array('data' => array(0 => $rows[0]));
 		}
-
+// print_r($rows);
+// die;
 		// Output in JSON? Let's do it and get out of here
 		if ($params['json'] === 'true')
 		{

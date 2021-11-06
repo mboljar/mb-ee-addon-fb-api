@@ -36,9 +36,12 @@ class Fb_graph_api_upd {
 		// create App Settings table
 		$fields = array(
 			'id'                => array('type' => 'INT', 'constraint' =>'2', 'unsigned' => TRUE, 'auto_increment' => TRUE),
-			'app_id'            => array('type' => 'VARCHAR', 'constraint' => '20'),
-			'app_secret'        => array('type' => 'VARCHAR', 'constraint' => '40'),
-			'default_token'     => array('type' => 'VARCHAR', 'constraint' => '200'),
+			'app_id'            => array('type' => 'VARCHAR', 'constraint' => '50'),
+			'app_secret'        => array('type' => 'VARCHAR', 'constraint' => '100'),
+			'app_graph_ver_min' => array('type' => 'VARCHAR', 'constraint' => '3', 'default' => 10),
+			'app_graph_ver_max' => array('type' => 'VARCHAR', 'constraint' => '3', 'default' => 12),
+			'app_graph_ver'     => array('type' => 'VARCHAR', 'constraint' => '8'),
+			'default_token'     => array('type' => 'VARCHAR', 'constraint' => '300'),
             'tokens'            => array('type' => 'TEXT'),
 			'created_by'        => array('type' => 'VARCHAR', 'constraint' => '255'),
 			'created_date'      => array('type' => 'INT', 'constraint' => '10')
@@ -47,6 +50,13 @@ class Fb_graph_api_upd {
 		ee()->dbforge->add_field($fields);
 		ee()->dbforge->add_key('id', TRUE);
 		ee()->dbforge->create_table('fb_graph_api');
+		// add some default data
+		$data = array(
+			'app_graph_ver_min' => 10,
+			'app_graph_ver_max' => 12,
+			'app_graph_ver'     => 'v12.0'
+		);
+		ee()->db->insert('fb_graph_api', $data);
 
 		// create Developer Settings table
 		$dev_fields = array(
@@ -59,6 +69,13 @@ class Fb_graph_api_upd {
 		ee()->dbforge->add_field($dev_fields);
 		ee()->dbforge->add_key('id', TRUE);
 		ee()->dbforge->create_table('fb_graph_api_dev');
+		// add some default data
+		$data = array(
+			'show_error_msg'    => 0,
+			'pretty_print_json' => 0,
+			'show_metadata'     => 0
+		);
+		ee()->db->insert('fb_graph_api_dev', $data);
 
 		return TRUE;
 	}
@@ -123,6 +140,13 @@ class Fb_graph_api_upd {
 			ee()->dbforge->add_field($dev_fields);
 			ee()->dbforge->add_key('id', TRUE);
 			ee()->dbforge->create_table('fb_graph_api_dev');
+			// add some default data
+			$data = array(
+				'show_error_msg'    => 0,
+				'pretty_print_json' => 0,
+				'show_metadata'     => 0
+			);
+			ee()->db->insert('fb_graph_api_dev', $data);
 
 			// Delete deprecated helper file
 			$delete_file = dirname(__FILE__).'/helpers/fb_parse_helper.php';
@@ -137,6 +161,40 @@ class Fb_graph_api_upd {
 			{
 				ee()->logger->developer(FB_GRAPH_API_MOD_NAME . " : " . lang('log_deprecated_helper') . " '$file_name' " . lang('log_dhp_deleted'));
 			}
+		}
+
+		if (version_compare($current, '1.1.2', '<'))
+		{
+			ee()->load->dbforge();
+
+			// Add Graph Version column
+			$app_graph_version = array(
+				'app_graph_ver' => array('type' => 'VARCHAR', 'constraint' =>'8')
+			);
+			ee()->dbforge->add_column('fb_graph_api', $app_graph_version, 'app_secret');
+
+			// add some default data
+			$data = array( 'app_graph_ver' => 'v12.0' );
+			ee()->db->update('fb_graph_api', $data);
+		}
+
+		if (version_compare($current, '1.1.4', '<'))
+		{
+			ee()->load->dbforge();
+
+			// Add min/max Graph Version columns
+			$app_graph_version_min_max = array(
+				'app_graph_ver_min' => array('type' => 'VARCHAR', 'constraint' =>'3'),
+				'app_graph_ver_max' => array('type' => 'VARCHAR', 'constraint' =>'3')
+			);
+			ee()->dbforge->add_column('fb_graph_api', $app_graph_version_min_max, 'app_secret');
+
+			// add some default data
+			$data = array(
+				'app_graph_ver_min' => 10,
+				'app_graph_ver_max' => 12
+			);
+			ee()->db->update('fb_graph_api', $data);
 		}
 
         return TRUE;

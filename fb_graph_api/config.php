@@ -12,8 +12,7 @@
 if ( ! defined('FB_GRAPH_API_MOD_NAME'))
 {
 	define('FB_GRAPH_API_MOD_NAME', 'Facebook Graph API Explorer');
-	define('FB_GRAPH_API_MOD_VER', '1.1.1');
-	define('FACEBOOK_GRAPH_VERSION', 'v10.0');
+	define('FB_GRAPH_API_MOD_VER', '1.1.4');
 }
 
 /* End of file config.php */

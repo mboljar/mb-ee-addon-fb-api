@@ -20,29 +20,35 @@ class Fb_graph_api_mcp
         {
 			$row = $query->row();
 			$this->settings = array(
-                'id'            => $row->id,
-				'app_id'        => $row->app_id,
-				'app_secret'    => $row->app_secret,
-                'default_token' => $row->default_token,
-                'tokens'        => $row->tokens,
-                'created_by'    => $row->created_by,
-                'created_date'  => $row->created_date,
+                'id'                => $row->id,
+				'app_id'            => $row->app_id,
+				'app_secret'        => $row->app_secret,
+				'app_graph_ver_min' => $row->app_graph_ver_min,
+				'app_graph_ver_max' => $row->app_graph_ver_max,
+				'app_graph_ver'     => $row->app_graph_ver,
+                'default_token'     => $row->default_token,
+                'tokens'            => $row->tokens,
+                'created_by'        => $row->created_by,
+                'created_date'      => $row->created_date,
 			);
 		}
         else
         {
 			$this->settings = array(
-                'id'            => '',
-				'app_id'        => '',
-				'app_secret'    => '',
-                'default_token' => '',
-                'tokens'        => '',
-                'created_by'    => '',
-                'created_date'  => ''
+                'id'                => '',
+				'app_id'            => '',
+				'app_secret'        => '',
+				'app_graph_ver_min' => '',
+				'app_graph_ver_max' => '',
+				'app_graph_ver'     => '',
+                'default_token'     => '',
+                'tokens'            => '',
+                'created_by'        => '',
+                'created_date'      => ''
 			);
         }
 
-        $fb_sdk = "<script>$(document).ready(function() { $.ajaxSetup({ cache: true });$.getScript('//connect.facebook.net/en_US/sdk.js', function() { FB.init({ appId: '" . $this->settings['app_id'] . "', xfbml: true, cookie: true, version: '" . FACEBOOK_GRAPH_VERSION . "' }); FB.getLoginStatus(function(response) { if(response) { $(\"#fb-error\").hide(); $(\"#fb-authorize\").show(); } });}); });</script>";
+        $fb_sdk = "<script>$(document).ready(function() { $.ajaxSetup({ cache: true });$.getScript('//connect.facebook.net/en_US/sdk.js', function() { FB.init({ appId: '" . $this->settings['app_id'] . "', xfbml: true, cookie: true, version: '" . $this->settings['app_graph_ver'] . "' }); FB.getLoginStatus(function(response) { if(response) { $(\"#fb-error\").hide(); $(\"#fb-authorize\").show(); } });}); });</script>";
 
         ee()->cp->add_to_foot($fb_sdk);
 
@@ -119,7 +125,9 @@ class Fb_graph_api_mcp
 		$vars['id'] = NULL;
 		$vars['app_id'] = NULL;
 		$vars['app_secret'] = NULL;
-		$vars['graph_version'] = FACEBOOK_GRAPH_VERSION;
+		$vars['app_graph_ver_min'] = NULL;
+		$vars['app_graph_ver_max'] = NULL;
+		$vars['app_graph_ver'] = NULL;
 		$vars['add_app'] = ee('CP/URL', 'addons/settings/fb_graph_api/add_app');
         $vars['add_token'] = ee('CP/URL', 'addons/settings/fb_graph_api/add_token');
         $vars['get_token'] = ee('CP/URL', 'addons/settings/fb_graph_api/get_tokens');
@@ -132,6 +140,9 @@ class Fb_graph_api_mcp
             $vars['form_hidden'] = array('id' => $this->settings['id']);
             $vars['app_id'] = $this->settings['app_id'];
             $vars['app_secret'] = $this->settings['app_secret'];
+            $vars['app_graph_ver_min'] = $this->settings['app_graph_ver_min'];
+            $vars['app_graph_ver_max'] = $this->settings['app_graph_ver_max'];
+            $vars['app_graph_ver'] = $this->settings['app_graph_ver'];
             $vars['default_token'] = $this->settings['default_token'];
             if(!empty($this->settings['tokens']))
             {
@@ -157,8 +168,11 @@ class Fb_graph_api_mcp
 		ee()->load->helper('form');
 
 		$data = array(
-			'app_id'     => ee()->input->post('app_id'),
-			'app_secret' => ee()->input->post('app_secret')
+			'app_id'            => ee()->input->post('app_id'),
+			'app_secret'        => ee()->input->post('app_secret'),
+			'app_graph_ver_min' => ee()->input->post('app_graph_ver_min'),
+			'app_graph_ver_max' => ee()->input->post('app_graph_ver_max'),
+			'app_graph_ver'     => ee()->input->post('app_graph_ver')
 		);
 
         $fbid = ee()->db->select('id')->get('fb_graph_api');
@@ -226,7 +240,7 @@ class Fb_graph_api_mcp
         $fb = new Facebook(array(
             'app_id'                => $this->settings['app_id'],
             'app_secret'            => $this->settings['app_secret'],
-            'default_graph_version' => FACEBOOK_GRAPH_VERSION
+            'default_graph_version' => $this->settings['app_graph_ver']
         ));
 
         // Get app token
@@ -446,13 +460,6 @@ class Fb_graph_api_mcp
         {
             $id = $devid->row_array();
 
-            // If settings changed then clear the old tokens
-            // if ($data['id'] != $this->dev_settings['id'])
-            // {
-            //     $data['show_error_msg'] = 0;
-            //     $data['pretty_print_json'] = 0;
-            //     $data['show_metadata'] = 0;
-            // }
 			ee()->db->update('fb_graph_api_dev', $data, $id);
 		}
         else
