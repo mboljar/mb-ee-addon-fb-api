@@ -369,4 +369,5 @@ Ron's Facebook Link add-on can be found at:
 - EE-Forge: [https://ee-forge.com/add-ons/facebook_link](https://ee-forge.com/add-ons/facebook_link)
 
 ##### Control panel icon
+
 The icon used in the control panel is [_social media scanner_](https://thenounproject.com/term/social-media-scanner/1954298/) by [_priyanka_](https://thenounproject.com/creativepriyanka/) from the [Noun Project](https://thenounproject.com/)
